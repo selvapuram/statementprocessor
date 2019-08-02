@@ -1,0 +1,70 @@
+configuration:
+  status: WARN
+  name: recruitment
+  properties:
+    property:
+    - name: app.name
+      value: recruitment
+    - name: LOG_EXCEPTION_CONVERSION_WORD
+      value: '%xwEx'
+    - name: LOG_LEVEL_PATTERN
+      value: '%5p'
+    - name: LOG_DATEFORMAT_PATTERN
+      value: '%d{ISO8601}{UTC}Z'
+    - name: CONSOLE_LOG_PATTERN
+      value: '%clr{${LOG_DATEFORMAT_PATTERN}}{faint} %clr{${LOG_LEVEL_PATTERN}}%clr{${sys:PID}}{magenta} %clr{---}{faint} [${app.name}, %X{traceId}, %X{spanId}%X{sessionId}, %X{userId}, %X{businessId}, %X{collectionId}, %X{x-client-traceid}] %clr{[%15.15t]}{faint} %clr{%-40.40c{1.}}{cyan}%clr{:}{faint} %m%n${sys:LOG_EXCEPTION_CONVERSION_WORD}'
+    - name: FILE_LOG_PATTERN
+      value: '${LOG_DATEFORMAT_PATTERN} ${LOG_LEVEL_PATTERN} ${sys:PID} --- [${app.name},%X{traceId}, %X{spanId}, %X{sessionId}, %X{userId}, %X{businessId}, %X{collectionId}, %X{x-client-traceid}] [%t] %-40.40c{1.} : %m%n${sys:LOG_EXCEPTION_CONVERSION_WORD}'
+  scripts:
+    script:
+      name: isFileAppenderEnabled
+      language: nashorn
+      value: 'var System = Java.type(''java.lang.System''), Boolean = Java.type(''java.lang.Boolean'');  Boolean.parseBoolean(System.getProperty("enableFileAppender",
+        "true")); '
+  appenders:
+    console:
+      name: Console
+      target: SYSTEM_OUT
+      patternlayout:
+        pattern: ${CONSOLE_LOG_PATTERN}
+    rollingfile:
+      name: MAIN
+      immediateflush: false
+      filename: target/recruitment/recruitment-test.log
+      filepattern: target/recruitment/recruitment-test-%d{yyyy-MM-dd}-%i.log.gz
+      patternlayout:
+        pattern: ${FILE_LOG_PATTERN}
+      policies:
+        timebasedtriggeringpolicy:
+          modulate: false
+        sizebasedtriggeringpolicy:
+          size: 5 MB
+      defaultrolloverstrategy:
+        max: 100
+  loggers:
+    root:
+      level: info
+      appenderref:
+        ref: Console
+    asynclogger:
+    - name: com
+      level: info
+      additivity: false
+      appenderref:
+        ref: MAIN
+        scriptfilter:
+          onmatch: ACCEPT
+          onmismatch: DENY
+          scriptref:
+            ref: isFileAppenderEnabled
+    - name: org.springframework
+      level: info
+      additivity: false
+      appenderref:
+      - ref: MAIN
+      - ref: Console
+        scriptfilter:
+          onmatch: ACCEPT
+          onmismatch: DENY
+          scriptref:
+            ref: isFileAppenderEnabled
