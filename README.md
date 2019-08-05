@@ -18,9 +18,9 @@ The repository is used to maintain the code base for rabobank statementprocessor
 14. spring fox swagger is used in this application for rest api visualization
 
 ## Tech Stack
-Maven
-SpringBoot
-Java 8
+* Maven
+* SpringBoot
+* Java 8
 
 ## Building, Testing and Running statementprocessor
 
@@ -32,7 +32,7 @@ You will need:
     * [Maven on Windows](https://maven.apache.org/guides/getting-started/windows-prerequisites.html)
 * A Unix/Linux shell environment OR the Windows command line
 
-From the top level directory in the statementprocessor application you can build, test and run statementprocessor service using the <tt>./run</tt> shell script , or using the <tt>refine.bat</tt> script from the Windows command line.
+From the top level directory in the statementprocessor application you can build, test and run statementprocessor service using the <tt>./run</tt> shell script , or using the <tt>compile.bat and run.bat</tt> script from the Windows command line.
 
 If you are working from the Windows command line you must also install a Java JDK, and [set the JAVA_HOME environment variable](http:confluence.atlassian.com/display/DOC/Setting+the+JAVA\_HOME+Variable+in+Windows) (please ensure it points to the JDK, and not the JRE) and the MVN\_HOME environment variable. You may need to reboot your machine after setting these environment variables. 
 
