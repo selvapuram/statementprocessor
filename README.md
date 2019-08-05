@@ -6,8 +6,8 @@ The repository is used to maintain the code base for rabobank statementprocessor
 2. ping is used to test the ping after service is up
 3. token is used to generate and auth token to proceed further api
 4. validate is the core api which is secured by auth token and validates the customer statement record based on the input file type and displays in json.
-5. download is the core api which is secured by auth token and validates and downloads the report in XLS or PDF
-6. Spring Batch is used to read the CSV or XML File, processes and saves it in H2
+5. download is the core api which is secured by auth token and validates and downloads the report in XLS
+6. Spring Batch is used to read the CSV or XML File, processes and saves it in db
 7. Spring AOP is used to log the method entry and exit in the process packages
 8. Spring Security is used to secure the APIs with dynamic uuid and stored in customer table.
 9. Spring Data JPA is used for database operations
@@ -16,6 +16,7 @@ The repository is used to maintain the code base for rabobank statementprocessor
 12. The input files taken for processing are kept in the classpath inside(src/main/resources)
 13. Externalization with application properties, swagger properties and messages properties
 14. spring fox swagger is used in this application for rest api visualization
+15. Spring Events are also created for Batch Started and Batch Completed
 
 ## Tech Stack
 * Maven

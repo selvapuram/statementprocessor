@@ -33,6 +33,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.rabobank.statementprocessor.constants.Constants;
 import com.rabobank.statementprocessor.model.dto.AcceptedFileType;
+import com.rabobank.statementprocessor.model.dto.DownloadFileType;
 import com.rabobank.statementprocessor.model.dto.Records;
 import com.rabobank.statementprocessor.utils.ObjectMapperUtil;
 
@@ -47,7 +48,7 @@ import com.rabobank.statementprocessor.utils.ObjectMapperUtil;
 public class ApplicationControllerTest extends AbstractTest {
 
   /** The base url. */
-  private String baseUrl = "/customers/statement/validate";
+  private String baseUrl = "/customers/statement";
 
   @Before
   public void setup() throws FileNotFoundException, IOException, JSONException {
@@ -57,7 +58,7 @@ public class ApplicationControllerTest extends AbstractTest {
   @Test
   public void testValidateCSVApplication() throws Exception {
 
-    String uri = baseUrl + "/";
+    String uri = baseUrl + "/validate";
     MockHttpServletRequestBuilder request = MockMvcRequestBuilders.post(uri).header(Constants.AUTH_HEADER, token)
       .param("inputFileType", AcceptedFileType.CSV.toString());
     MvcResult result = mvc.perform(request.contentType(MediaType.APPLICATION_JSON)).andReturn();
@@ -72,7 +73,7 @@ public class ApplicationControllerTest extends AbstractTest {
   @Test
   public void testValidateXMLApplication() throws Exception {
 
-    String uri = baseUrl + "/";
+    String uri = baseUrl + "/validate";
     MockHttpServletRequestBuilder request = MockMvcRequestBuilders.post(uri).header(Constants.AUTH_HEADER, token)
       .param("inputFileType", AcceptedFileType.XML.toString());
     MvcResult result = mvc.perform(request.contentType(MediaType.APPLICATION_JSON)).andReturn();
@@ -84,4 +85,30 @@ public class ApplicationControllerTest extends AbstractTest {
 
   }
 
+  @Test
+  public void testDownloadFile() throws Exception {
+    String uri = baseUrl + "/download";
+    MockHttpServletRequestBuilder request = MockMvcRequestBuilders.get(uri).header(Constants.AUTH_HEADER, token)
+      .contentType(MediaType.APPLICATION_OCTET_STREAM)
+      .param("inputFileType", AcceptedFileType.XML.toString())
+      .param("outputFileType", DownloadFileType.XLS.toString());
+    MvcResult result = mvc.perform(request.contentType(MediaType.APPLICATION_OCTET_STREAM)).andReturn();
+
+    String content = result.getResponse().getContentAsString();
+    Assert.assertEquals("Application Response Code", result.getResponse().getStatus(), HttpStatus.OK.value());
+    Assert.assertNotNull("Application Response", content);
+  }
+
+  @Test
+  public void testInvalidFileType() throws Exception {
+    String uri = baseUrl + "/validate";
+    MockHttpServletRequestBuilder request = MockMvcRequestBuilders.get(uri).header(Constants.AUTH_HEADER, token)
+      .param("inputFileType", "PDF");
+    MvcResult result = mvc.perform(request.contentType(MediaType.APPLICATION_JSON)).andReturn();
+
+    String content = result.getResponse().getContentAsString();
+    Assert.assertEquals("Application Response Code", result.getResponse().getStatus(),
+      HttpStatus.INTERNAL_SERVER_ERROR.value());
+    Assert.assertNotNull("Application Response", content);
+  }
 }

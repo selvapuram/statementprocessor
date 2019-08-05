@@ -22,31 +22,44 @@ package com.rabobank.statementprocessor.constants;
  */
 public class Constants {
 
+  /** The Constant ERR_RESOURCE_NOT_PROCESSED. */
   public static final String ERR_RESOURCE_NOT_PROCESSED = "1001";
 
+  /** The Constant ERR_GENERIC_EXCEPTION. */
   public static final String ERR_GENERIC_EXCEPTION = "9999";
 
+  /** The Constant ERR_RESOURCE_NOT_FOUND. */
   public static final String ERR_RESOURCE_NOT_FOUND = "1002";
 
+  /** The Constant AUTH_HEADER. */
   public static final String AUTH_HEADER = "x-auth-token";
 
+  /** The Constant HEADERS. */
   public static final String[] HEADERS = {"reference", "accountNumber", "description", "startBalance",
     "mutation", "endBalance"};
 
+  /** The Constant KEY_XML_ROOT_ELEMENT. */
   public static final String KEY_XML_ROOT_ELEMENT = "record";
 
+  /** The Constant KEY_FILE_TYPE. */
   public static final String KEY_FILE_TYPE = "fileType";
 
+  /** The Constant SWITCHTOCSV. */
   public static final String SWITCHTOCSV = "SWITCHTOCSV";
 
+  /** The Constant SWITCHTOXML. */
   public static final String SWITCHTOXML = "SWITCHTOXML";
 
+  /** The Constant PACKAGE_ENTITY. */
   public static final String PACKAGE_ENTITY = "com.rabobank.statementprocessor.model.entity";
 
+  /** The Constant HEADER_CONTENT_DOWNLOAD. */
   public static final String HEADER_CONTENT_DOWNLOAD = "Content-Disposition";
 
+  /** The Constant HEADER_ATTACH_PREFIX. */
   public static final String HEADER_ATTACH_PREFIX = "attachment; filename=";
 
+  /** The Constant INSERT_QUERY. */
   public static final String INSERT_QUERY = "INSERT INTO account (REFERENCE,ACCOUNTNUMBER,DESCRIPTION,STARTBALANCE,MUTATION,ENDBALANCE, ISFAILEDRECORD) VALUES (:reference,:accountNumber,:description,:startBalance,:mutation,:endBalance,:failed)";
 
 }

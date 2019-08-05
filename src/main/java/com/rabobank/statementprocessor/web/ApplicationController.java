@@ -24,6 +24,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -138,7 +139,7 @@ public class ApplicationController {
         required = true,
         defaultValue = "CSV") AcceptedFileType inputFileType,
     @ApiParam(value = "${swagger.downloadstatement.filetype.ApiParam.value}", defaultValue = "XLS",
-      allowableValues = "XLS,PDF") @Valid @RequestParam(value = "outputFileType",
+      allowableValues = "XLS") @Valid @RequestParam(value = "outputFileType",
         required = true,
         defaultValue = "XLS") DownloadFileType outputFileType)
     throws Exception {
@@ -147,7 +148,7 @@ public class ApplicationController {
     if (recordSet.getCustomerRecords() != null && !recordSet.getCustomerRecords().isEmpty()) {
       ByteArrayInputStream in = ExcelGenerator.generate(recordSet.getCustomerRecords());
       HttpHeaders headers = new HttpHeaders();
-      headers.add(HttpHeaders.CONTENT_TYPE, "application/ms-excel");
+      headers.add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_OCTET_STREAM_VALUE);
       headers.add(HttpHeaders.CONTENT_DISPOSITION, Constants.HEADER_ATTACH_PREFIX + downloadXLSFileName);
       return ResponseEntity.ok().headers(headers).body(new InputStreamResource(in));
     } else {

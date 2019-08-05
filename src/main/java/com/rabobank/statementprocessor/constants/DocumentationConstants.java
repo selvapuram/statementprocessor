@@ -19,7 +19,7 @@
 package com.rabobank.statementprocessor.constants;
 
 /**
- * @author jayakanthan.m
+ * @author madhankumar
  *
  */
 public class DocumentationConstants {

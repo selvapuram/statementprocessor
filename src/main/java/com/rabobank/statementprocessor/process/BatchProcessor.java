@@ -38,6 +38,8 @@ import com.rabobank.statementprocessor.utils.NotificationListener;
 @EnableBatchProcessing
 public class BatchProcessor {
 
+  public static final String CP1252 = "Cp1252";
+
   /* creates a job builder */
   @Autowired
   private JobBuilderFactory jobBuilderFactory;
@@ -58,7 +60,7 @@ public class BatchProcessor {
     return new FlatFileItemReaderBuilder<AccountEntity>()
       .name("accountItemReader")
       .resource(new ClassPathResource(sourceCSVFile))
-      .encoding("Cp1252")
+      .encoding(CP1252)
       .linesToSkip(1)
       .delimited()
       .names(Constants.HEADERS)
