@@ -42,9 +42,9 @@ Ensure that you set your MAVEN_HOME environment variable, for example:
 ```MAVEN_HOME=E:\Downloads\apache-maven-3.5.4-bin\apache-maven-3.5.4\```
 
 NOTE: 
-1.You can use Maven directly
-2.Before running the applications, all logs are created under the /usr/local/rabobank/logs
-3.application.properties has the db details and port number
+1. You can use Maven directly
+2. Before running the applications, all logs are created under the /usr/local/rabobank/logs
+3. application.properties has the db details and port number
 
 and for any permission related item, Please use 
 chmod command to give the permission in linux or mac machines in the terminal.
