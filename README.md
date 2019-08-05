@@ -96,11 +96,9 @@ git clone https://github.com/selvapuram/statementprocessor.git
 As statementprocessor comes with some jars that need to be installed in Maven, run `./run` (or `run.bat` on Windows) to install these first. (This only needs to be done once on your system.)
 Then in Eclipse, invoke the `Import...` command and select `Existing Maven Projects`. 
 
-![Import a Maven project](images/Eclipse/eclipse-1.png)
 
 Choose the root directory of your clone of the repository.
 
-![Select maven projects to import](images/Eclipse/eclipse-2.png)
 
 To run and debug statementprocessor from STS(Spring Tool Suite), spring boot dashboard has everything to run and debug.
 
