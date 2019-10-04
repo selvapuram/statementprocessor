@@ -57,6 +57,8 @@ public class BatchProcessor {
   @Bean
   @Scope(value = "step", proxyMode = ScopedProxyMode.INTERFACES)
   public ItemStreamReader<AccountEntity> csvReader() {
+    BeanWrapperFieldSetMapper<AccountEntity> bw = new BeanWrapperFieldSetMapper<>();
+    bw.setTargetType(AccountEntity.class);
     return new FlatFileItemReaderBuilder<AccountEntity>()
       .name("accountItemReader")
       .resource(new ClassPathResource(sourceCSVFile))
@@ -65,11 +67,7 @@ public class BatchProcessor {
       .delimited()
       .names(Constants.HEADERS)
       .lineMapper(lineMapper())
-      .fieldSetMapper(new BeanWrapperFieldSetMapper<AccountEntity>() {
-        {
-          setTargetType(AccountEntity.class);
-        }
-      })
+      .fieldSetMapper(bw)
       .build();
   }
 
